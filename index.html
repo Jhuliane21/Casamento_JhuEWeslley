@@ -229,6 +229,29 @@
     .carousel-btn.prev { left: 20px; }
     .carousel-btn.next { right: 20px; }
 
+    .carousel-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 3;
+    }
+
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .indicator.active {
+      background: #fff;
+    }
+
     /* ===== RESPONSIVO ===== */
     @media (max-width: 1024px) {
       .hero-text {
@@ -328,6 +351,12 @@
   <div class="carousel">
     <img src="imgs/2019.jpg" class="carousel-image" style="display:block;">
     <img src="imgs/capa.jpg" class="carousel-image" style="display:none;">
+    <button class="carousel-btn prev">&#10094;</button>
+    <button class="carousel-btn next">&#10095;</button>
+    <div class="carousel-indicators">
+      <span class="indicator active" data-index="0"></span>
+      <span class="indicator" data-index="1"></span>
+    </div>
   </div>
 </div>
 
@@ -360,11 +389,15 @@
   const carouselImages = document.querySelectorAll('.carousel-image');
   const prevBtn = document.querySelector('.carousel-btn.prev');
   const nextBtn = document.querySelector('.carousel-btn.next');
+  const indicators = document.querySelectorAll('.indicator');
   let currentIndex = 0;
 
   function showImage(idx) {
     carouselImages.forEach((img, i) => {
       img.style.display = i === idx ? 'block' : 'none';
+    });
+    indicators.forEach((ind, i) => {
+      ind.classList.toggle('active', i === idx);
     });
   }
 
@@ -382,6 +415,13 @@
     });
   }
 
+  indicators.forEach((ind) => {
+    ind.addEventListener('click', () => {
+      currentIndex = parseInt(ind.dataset.index);
+      showImage(currentIndex);
+    });
+  });
+
   // Troca automática a cada 5 segundos (somente se houver mais de 1 imagem)
   if (carouselImages.length > 1) {
     setInterval(() => {
@@ -393,38 +433,64 @@
   // Garante que a primeira imagem apareça corretamente ao carregar
   showImage(currentIndex);
 
-  const targetDate = new Date("2026-09-12T16:00:00").getTime();
+  // Contagem regressiva
+  const targetDate = new Date(2026, 8, 12, 16, 0, 0).getTime(); // Mês é 0-indexed (8 = setembro)
 
   const daysEl = document.getElementById("days");
   const hoursEl = document.getElementById("hours");
   const minutesEl = document.getElementById("minutes");
   const secondsEl = document.getElementById("seconds");
 
-  function updateCountdown() {
-    try {
-      if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
-        console.warn('Countdown: elementos não encontrados');
-        return;
-      }
+  function pad(num) {
+    return String(num).padStart(2, '0');
 
-      const now = Date.now();
-      const diff = targetDate - now;
+  }  function updateCountdown() {
+    const now = Date.now();
+    const diff = targetDate - now;
 
-      if (diff < 0) {
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
-        return;
-      }
-
-      daysEl.textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
-      hoursEl.textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      minutesEl.textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      secondsEl.textContent = Math.floor((diff % (1000 * 60)) / 1000);
-    } catch (err) {
-      console.error('Erro na contagem regressiva:', err);
+    if (diff < 0) {
+      daysEl.textContent = '00';
+      hoursEl.textContent = '00';
+      minutesEl.textContent = '00';
+      secondsEl.textContent = '00';
+      return;
     }
+
+    daysEl.textContent = pad(Math.floor(diff / (1000 * 60 * 60 * 24)));
+    hoursEl.textContent = pad(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    minutesEl.textContent = pad(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));
+    secondsEl.textContent = pad(Math.floor((diff % (1000 * 60)) / 1000));
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+</html></body></script>  const countdownInterval = setInterval(updateCountdown, 1000);  updateCountdown();  }    }      secondsEl.innerText = "00";      minutesEl.innerText = "00";      hoursEl.innerText = "00";      daysEl.innerText = "00";      clearInterval(countdownInterval);    if (distance < 0) {    secondsEl.innerText = pad(seconds);    minutesEl.innerText = pad(minutes);    hoursEl.innerText = pad(hours);    daysEl.innerText = pad(days);    const seconds = Math.floor((distance % (1000 * 60)) / 1000);    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));    const days = Math.floor(distance / (1000 * 60 * 60 * 24));    const distance = targetDate - now;    const now = new Date().getTime();  function updateCountdown() {  }  function updateCountdown() {
+    const now = Date.now();
+    const diff = targetDate - now;
+
+    if (diff < 0) {
+      daysEl.textContent = '00';
+      hoursEl.textContent = '00';
+      minutesEl.textContent = '00';
+      secondsEl.textContent = '00';
+      return;
+    }
+
+    daysEl.textContent = pad(Math.floor(diff / (1000 * 60 * 60 * 24)));
+    hoursEl.textContent = pad(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+    minutesEl.textContent = pad(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));
+    secondsEl.textContent = pad(Math.floor((diff % (1000 * 60)) / 1000));
   }
 
   setInterval(updateCountdown, 1000);

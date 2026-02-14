@@ -368,41 +368,63 @@
     });
   }
 
-  prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
-    showImage(currentIndex);
-  });
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
+      showImage(currentIndex);
+    });
+  }
 
-  nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % carouselImages.length;
-    showImage(currentIndex);
-  });
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % carouselImages.length;
+      showImage(currentIndex);
+    });
+  }
 
-  // Troca automática a cada 5 segundos
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % carouselImages.length;
-    showImage(currentIndex);
-  }, 5000);
+  // Troca automática a cada 5 segundos (somente se houver mais de 1 imagem)
+  if (carouselImages.length > 1) {
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % carouselImages.length;
+      showImage(currentIndex);
+    }, 5000);
+  }
 
   // Garante que a primeira imagem apareça corretamente ao carregar
   showImage(currentIndex);
 
   const targetDate = new Date("2026-09-12T16:00:00").getTime();
 
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
+
   function updateCountdown() {
-    const now = new Date().getTime();
-    const diff = targetDate - now;
+    try {
+      if (!daysEl || !hoursEl || !minutesEl || !secondsEl) {
+        console.warn('Countdown: elementos não encontrados');
+        return;
+      }
 
-    if (diff < 0) return;
+      const now = Date.now();
+      const diff = targetDate - now;
 
-    document.getElementById("days").textContent =
-      Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").textContent =
-      Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    document.getElementById("minutes").textContent =
-      Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    document.getElementById("seconds").textContent =
-      Math.floor((diff % (1000 * 60)) / 1000);
+      if (diff < 0) {
+        daysEl.textContent = '00';
+        hoursEl.textContent = '00';
+        minutesEl.textContent = '00';
+        secondsEl.textContent = '00';
+        return;
+      }
+
+      daysEl.textContent = Math.floor(diff / (1000 * 60 * 60 * 24));
+      hoursEl.textContent = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      minutesEl.textContent = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      secondsEl.textContent = Math.floor((diff % (1000 * 60)) / 1000);
+    } catch (err) {
+      console.error('Erro na contagem regressiva:', err);
+    }
   }
 
   setInterval(updateCountdown, 1000);

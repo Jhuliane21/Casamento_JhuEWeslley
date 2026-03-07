@@ -150,6 +150,62 @@ nav a {
   color: #ccc;
 }
 
+.welcome form {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 8px;
+  margin: 30px auto 0;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.welcome input,
+.welcome textarea {
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  color: #eaeaea;
+  padding: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.welcome input:focus,
+.welcome textarea:focus {
+  outline: none;
+  border-color: #d4a574;
+  background: #333333;
+}
+
+.welcome textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.welcome button[type="submit"] {
+  background: #d4a574;
+  color: #0f0f0f;
+  border: none;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.welcome button[type="submit"]:hover {
+  background: #e5b88d;
+  transform: translateY(-2px);
+}
+
+.welcome button[type="submit"]:active {
+  transform: translateY(0);
+}
+
 /* ===== MESSAGES SECTION ===== */
 .messages-section {
   max-width: 900px;

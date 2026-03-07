@@ -102,5 +102,30 @@ function updateCountdown() {
   if (secondsEl) secondsEl.textContent = pad(seconds);
 }
 
+function carregarMensagens() {
+  fetch('get_messages.php')
+    .then(res => res.json())
+    .then(mensagens => {
+      const mensagensList = document.getElementById('mensagens-list');
+      if (!mensagensList) return; // Garante que o elemento existe
+      mensagensList.innerHTML = '';
+      if (!mensagens || mensagens.length === 0) {
+        mensagensList.innerHTML = '<p>Nenhuma mensagem ainda.</p>';
+        return;
+      }
+      mensagens.forEach(msg => {
+        mensagensList.innerHTML += `<div class="mensagem"><strong>${msg.nome}:</strong> ${msg.mensagem}</div>`;
+      });
+    })
+    .catch(() => {
+      const mensagensList = document.getElementById('mensagens-list');
+      if (mensagensList)
+        mensagensList.innerHTML = '<p>Erro ao carregar mensagens.</p>';
+    });
+}
+
+window.addEventListener('DOMContentLoaded', carregarMensagens);
+
+var form = document.getElementById("mensagemForm");
+
 const countdownInterval = setInterval(updateCountdown, 1000);
-updateCountdown();

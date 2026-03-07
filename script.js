@@ -105,99 +105,55 @@ function updateCountdown() {
 const countdownInterval = setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// === SISTEMA DE MENSAGENS AOS NOIVOS ===
-const messageForm = document.getElementById('message-form');
-const guestNameInput = document.getElementById('guest-name');
-const guestMessageInput = document.getElementById('guest-message');
-const messagesContainer = document.getElementById('messages-container');
-
-// Função para formatar data
-function formatDate(date) {
-  const d = new Date(date);
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const year = d.getFullYear();
-  const hours = String(d.getHours()).padStart(2, '0');
-  const minutes = String(d.getMinutes()).padStart(2, '0');
-  return `${day}/${month}/${year} às ${hours}:${minutes}`;
+// Função para buscar e exibir mensagens
+function carregarMensagens() {
+  fetch('get_messages.php')
+    .then(res => {
+      if (!res.ok) throw new Error('Erro ao buscar mensagens');
+      return res.json();
+    })
+    .then(mensagens => {
+      const mensagensList = document.getElementById('mensagens-list');
+      mensagensList.innerHTML = '';
+      if (!mensagens || mensagens.length === 0) {
+        mensagensList.innerHTML = '<p>Nenhuma mensagem ainda.</p>';
+        return;
+      }
+      mensagens.forEach(msg => {
+        mensagensList.innerHTML += `<div class="mensagem"><strong>${msg.nome}:</strong> ${msg.mensagem}</div>`;
+      });
+    })
+    .catch(() => {
+      document.getElementById('mensagens-list').innerHTML = '<p>Erro ao carregar mensagens.</p>';
+    });
 }
 
-// Função para carregar mensagens do localStorage
-function loadMessages() {
-  const messages = JSON.parse(localStorage.getItem('weddingMessages')) || [];
-  return messages;
-}
-
-// Função para salvar mensagens no localStorage
-function saveMessage(name, message) {
-  const messages = loadMessages();
-  messages.push({
-    name: name,
-    message: message,
-    date: new Date().toISOString()
-  });
-  localStorage.setItem('weddingMessages', JSON.stringify(messages));
-}
-
-// Função para renderizar mensagens
-function renderMessages() {
-  const messages = loadMessages();
-  messagesContainer.innerHTML = '';
-  
-  if (messages.length === 0) {
-    messagesContainer.innerHTML = '<div class="no-messages">Nenhuma mensagem ainda. Seja o primeiro a deixar uma!</div>';
-    return;
+document.getElementById('mensagemForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const nome = this.nome.value.trim();
+  const mensagem = this.mensagem.value.trim();
+  if (nome && mensagem) {
+    fetch('save_message.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `nome=${encodeURIComponent(nome)}&mensagem=${encodeURIComponent(mensagem)}`
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Erro ao enviar mensagem');
+      return res.json();
+    })
+    .then(resp => {
+      if (resp.success) {
+        this.reset();
+        carregarMensagens();
+      } else {
+        alert('Erro ao enviar mensagem: ' + (resp.error || ''));
+      }
+    })
+    .catch(() => {
+      alert('Erro ao enviar mensagem.');
+    });
   }
-  
-  // Mostrar mensagens em ordem reversa (mais recentes primeiro)
-  messages.reverse().forEach(msg => {
-    const messageCard = document.createElement('div');
-    messageCard.className = 'message-card';
-    messageCard.innerHTML = `
-      <div class="guest-name">${escapeHtml(msg.name)}</div>
-      <div class="guest-message">${escapeHtml(msg.message).replace(/\n/g, '<br>')}</div>
-      <div class="message-date">${formatDate(msg.date)}</div>
-    `;
-    messagesContainer.appendChild(messageCard);
-  });
-}
+});
 
-// Função para escapar HTML e evitar injeção
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
-
-// Event listener do formulário
-if (messageForm) {
-  messageForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const name = guestNameInput.value.trim();
-    const message = guestMessageInput.value.trim();
-    
-    if (name && message) {
-      saveMessage(name, message);
-      guestNameInput.value = '';
-      guestMessageInput.value = '';
-      renderMessages();
-      
-      // Feedback visual
-      const btn = messageForm.querySelector('.submit-btn');
-      const originalText = btn.textContent;
-      btn.textContent = 'Mensagem enviada!';
-      btn.style.background = '#7cb342';
-      
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
-      }, 2000);
-    }
-  
-  });
-
-}
-
-// Carregar mensagens ao inicializar a página
-renderMessages();
+window.addEventListener('DOMContentLoaded', carregarMensagens);

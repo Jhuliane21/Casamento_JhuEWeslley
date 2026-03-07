@@ -19,7 +19,7 @@
     <a href="#">Os Noivos</a>
     <a href="#">Presentes</a>
     <a href="#">Confirmar Presença</a>
-     <a href="#">Confirmar Presença</a>
+    <a href="#mensagem-noivos">Mensagem aos Noivos</a>
   </nav>
 </header>
 
@@ -73,18 +73,31 @@
   </p>
 </section>
 
-<section class="messages-section">
-  <h3>Deixe uma Mensagem aos Noivos</h3>
-  
-  <form action="salvar.php" method="post"id="message-form" class="message-form">
-    <input type="text" id="guest-name" placeholder="Seu nome" required maxlength="100">
-    <textarea id="guest-message" placeholder="Escreva sua mensagem aqui..." required maxlength="500" rows="6"></textarea>
-    <button type="submit" class="submit-btn">Enviar Mensagem</button>
+<section class="welcome">
+  <h3>A Festa</h3>
+  <p>
+  Local: Espaço Vista da Serra<br>
+  Data: 12 de setembro de 2026<br>
+  Horário: 16 hrs<br>
+  Endereço:<br>
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3698.6671109803674!2d-47.7535625!3d-22.0240625!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94b80b3f97946d79%3A0xffa8b8ebfb7fa495!2sEspa%C3%A7o%20Vista%20da%20Serra%20local%20Para%20Eventos%20em%20S%C3%A3o%20Carlos!5e0!3m2!1spt-BR!2sbr!4v1772848102101!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </p>
+
+<!-- ===== FORMULÁRIO DE MENSAGEM AOS NOIVOS ===== -->
+<section id="mensagem-noivos" class="mensagem-noivos">
+  <h3>Deixe uma mensagem aos noivos</h3>
+  <form id="mensagemForm">
+    <input type="text" name="nome" placeholder="Seu nome" required>
+    <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
+    <button type="submit">Enviar</button>
   </form>
-  
-  <div class="messages-list" id="messages-list">
-    <h4>Mensagens dos Convidados</h4>
-    <div id="messages-container" class="messages-container"></div>
+</section>
+
+<!-- ===== SEÇÃO DE MENSAGENS ===== -->
+<section id="mensagens-recebidas" class="mensagens-recebidas">
+  <h3>Mensagens aos Noivos</h3>
+  <div id="mensagens-list">
+    <!-- As mensagens serão carregadas aqui -->
   </div>
 </section>
 

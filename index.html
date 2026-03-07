@@ -73,6 +73,21 @@
   </p>
 </section>
 
+<section class="messages-section">
+  <h3>Deixe uma Mensagem aos Noivos</h3>
+  
+  <form action="salvar.php" method="post"id="message-form" class="message-form">
+    <input type="text" id="guest-name" placeholder="Seu nome" required maxlength="100">
+    <textarea id="guest-message" placeholder="Escreva sua mensagem aqui..." required maxlength="500" rows="6"></textarea>
+    <button type="submit" class="submit-btn">Enviar Mensagem</button>
+  </form>
+  
+  <div class="messages-list" id="messages-list">
+    <h4>Mensagens dos Convidados</h4>
+    <div id="messages-container" class="messages-container"></div>
+  </div>
+</section>
+
 <footer>
   Feito com carinho 💕
 </footer>

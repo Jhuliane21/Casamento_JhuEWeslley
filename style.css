@@ -150,6 +150,139 @@ nav a {
   color: #ccc;
 }
 
+/* ===== MESSAGES SECTION ===== */
+.messages-section {
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 25px;
+}
+
+.messages-section h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.message-form {
+  background: #1a1a1a;
+  padding: 40px;
+  border-radius: 8px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.message-form input,
+.message-form textarea {
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  color: #eaeaea;
+  padding: 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.message-form input:focus,
+.message-form textarea:focus {
+  outline: none;
+  border-color: #d4a574;
+  background: #333333;
+}
+
+.message-form textarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.submit-btn {
+  background: #d4a574;
+  color: #0f0f0f;
+  border: none;
+  padding: 15px 30px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.submit-btn:hover {
+  background: #e5b88d;
+  transform: translateY(-2px);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.messages-list {
+  padding: 40px 0;
+}
+
+.messages-list h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+  color: #ccc;
+}
+
+.messages-container {
+  display: grid;
+  gap: 20px;
+}
+
+.message-card {
+  background: #1a1a1a;
+  padding: 25px;
+  border-left: 4px solid #d4a574;
+  border-radius: 4px;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-card .guest-name {
+  font-weight: 600;
+  color: #d4a574;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.message-card .guest-message {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+
+.message-card .message-date {
+  color: #777;
+  font-size: 12px;
+  margin-top: 15px;
+  font-style: italic;
+}
+
+.no-messages {
+  text-align: center;
+  color: #666;
+  padding: 40px 20px;
+  font-size: 14px;
+}
+
 footer {
   padding: 30px;
   text-align: center;

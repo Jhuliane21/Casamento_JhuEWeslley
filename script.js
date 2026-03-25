@@ -1,7 +1,5 @@
 // ...carrossel e contagem regressiva (movido do index.html)...
 const carouselImages = document.querySelectorAll('.carousel-image');
-const prevBtn = document.querySelector('.carousel-btn.prev');
-const nextBtn = document.querySelector('.carousel-btn.next');
 const indicatorsContainer = document.querySelector('.carousel-indicators');
 const overlay = document.querySelector('.overlay-slide');
 const overlayText = overlay ? overlay.querySelector('span') : null;
@@ -62,6 +60,9 @@ function startAutoplay() {
 }
 function restartAutoplay() { startAutoplay(); }
 
+// Botões de navegação do carrossel
+const prevBtn = document.querySelector('.carousel-btn.prev');
+const nextBtn = document.querySelector('.carousel-btn.next');
 if (prevBtn) prevBtn.addEventListener('click', prev);
 if (nextBtn) nextBtn.addEventListener('click', next);
 
@@ -102,29 +103,7 @@ function updateCountdown() {
   if (secondsEl) secondsEl.textContent = pad(seconds);
 }
 
-function carregarMensagens() {
-  fetch('get_messages.php')
-    .then(res => res.json())
-    .then(mensagens => {
-      const mensagensList = document.getElementById('mensagens-list');
-      if (!mensagensList) return; // Garante que o elemento existe
-      mensagensList.innerHTML = '';
-      if (!mensagens || mensagens.length === 0) {
-        mensagensList.innerHTML = '<p>Nenhuma mensagem ainda.</p>';
-        return;
-      }
-      mensagens.forEach(msg => {
-        mensagensList.innerHTML += `<div class="mensagem"><strong>${msg.nome}:</strong> ${msg.mensagem}</div>`;
-      });
-    })
-    .catch(() => {
-      const mensagensList = document.getElementById('mensagens-list');
-      if (mensagensList)
-        mensagensList.innerHTML = '<p>Erro ao carregar mensagens.</p>';
-    });
-}
-
-window.addEventListener('DOMContentLoaded', carregarMensagens);
+// ...função carregarMensagens e uso removidos por não serem utilizados...
 
 var form = document.getElementById("mensagemForm");
 

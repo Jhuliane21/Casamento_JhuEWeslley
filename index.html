@@ -16,9 +16,10 @@
 <header>
   <div class="logo">J + W</div>
   <nav>
-    <a href="#">Os Noivos</a>
+    <a href="#nossa-historia">Os Noivos</a>
     <a href="#">Presentes</a>
-    <a href="#">Confirmar Presença</a>
+    <a href="https://wa.me/+5516991521748?text=Olá,%20gostaria%20de%20confirmar%20minha%20presença%20no%20casamento%20de%20Jhuliane%20e%20Weslley">Confirmar Presença</a>
+    <a href="#cerimonia">A Cerimonia</a>
     <a href="#mensagem-noivos">Mensagem aos Noivos</a>
   </nav>
 </header>
@@ -32,26 +33,25 @@
   <div class="hero-image"></div>
 </section>
 
-<section class="countdown-section">
-  <h2>CONTAGEM REGRESSIVA PARA O GRANDE DIA</h2>
-
-  <div class="countdown">
-    <div class="time-box"><span id="days">00</span><small>Dias</small></div>
-    <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
-    <div class="time-box"><span id="minutes">00</span><small>Minutos</small></div>
-    <div class="time-box"><span id="seconds">00</span><small>Segundos</small></div>
-  </div>
+<section class="welcome nossa-historia">
+  <h3>Se vocês chegaram aqui, significa que fazem parte da nossa história</h3>
+  <p>
+    A melhor forma de compartilhar esse momento com vocês é unindo sonhos.
+    Aqui vamos contar nossa história, dividir cada detalhe e celebrar o amor
+    que nos trouxe até aqui. Ficamos muito felizes em ter vocês conosco nessa jornada. Obrigada por fazerem parte desse dia e por estarem aqui para celebrar conosco
+  </p>
 </section>
 
 <!-- ===== CARROSSEL DE IMAGENS ===== -->
-<div class="carousel-container">
+<div id="nossa-historia" class="carousel-container">
   <div class="carousel">
     <img src="imgs/20242.jpeg" class="carousel-image" style="display:none;">
-    <img src="imgs/2019.jpeg" class="carousel-image" style="display:none;">
+      <button class="carousel-btn prev" aria-label="Foto anterior">&#10094;</button>
     <img src="imgs/2020.jpeg" class="carousel-image" style="display:none;">
     <img src="imgs/2021.jpeg" class="carousel-image" style="display:none;">
     <img src="imgs/2022.jpeg" class="carousel-image" style="display:none;">
     <img src="imgs/2023.jpeg" class="carousel-image" style="display:none;">
+      <button class="carousel-btn next" aria-label="Próxima foto">&#10095;</button>
     <img src="imgs/2024.jpeg" class="carousel-image" style="display:none;">
     <img src="imgs/2025.jpeg" class="carousel-image" style="display:none;">
     <img src="imgs/2026.jpeg" class="carousel-image" style="display:none;">
@@ -64,17 +64,20 @@
   </div>
 </div>
 
-<section class="welcome">
-  <h3>Sejam bem-vindos ao nosso site!</h3>
-  <p>
-    A melhor forma de compartilhar esse momento com vocês é unindo sonhos.
-    Aqui vamos contar nossa história, dividir cada detalhe e celebrar o amor
-    que nos trouxe até aqui.
-  </p>
+<section class="countdown-section">
+  <h2>CONTAGEM REGRESSIVA PARA O GRANDE DIA</h2>
+
+  <div class="countdown">
+    <div class="time-box"><span id="days">00</span><small>Dias</small></div>
+    <div class="time-box"><span id="hours">00</span><small>Horas</small></div>
+    <div class="time-box"><span id="minutes">00</span><small>Minutos</small></div>
+    <div class="time-box"><span id="seconds">00</span><small>Segundos</small></div>
+  </div>
 </section>
 
-<section class="welcome">
-  <h3>A Festa</h3>
+
+<section id="cerimonia" class="cerimonia">
+  <h3>A Cerimônia</h3>
   <p>
   Local: Espaço Vista da Serra<br>
   Data: 12 de setembro de 2026<br>
@@ -85,26 +88,16 @@
 </section>
 
 <!-- ===== FORMULÁRIO DE MENSAGEM AOS NOIVOS ===== -->
-<section id="mensagem-noivos" class="welcome">
-  <h3>Deixe uma mensagem aos noivos</h3>
+<section id="mensagem-noivos" class="mensagens">
+  <h3>Envie uma mensagem aos noivos</h3>
   <form id="mensagemForm" action="https://formspree.io/f/xpqyzbpr" method="POST" target="_blank">
     <input type="text" name="nome" placeholder="Seu nome" required>
+    <br>
     <textarea name="mensagem" placeholder="Sua mensagem" required></textarea>
+    <br>
     <button type="submit">Enviar</button>
   </form>
 </section>
-
-<!-- ===== SEÇÃO DE MENSAGENS ===== -->
-<section id="mensagens-recebidas" class="mensagens-recebidas">
-  <h3>Mensagens aos Noivos</h3>
-  <div id="mensagens-list">
-    <!-- As mensagens serão carregadas aqui -->
-  </div>
-</section>
-
-<footer>
-  Feito com carinho 💕
-</footer>
 
 <!-- substituir o script inline pelo arquivo externo -->
 <script src="script.js"></script>
